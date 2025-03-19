@@ -6,7 +6,7 @@ public abstract class Employee {
     public Employee(String firstName, String lastName, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.id = id;
+        setId(id);
     }
     public Employee(){
         this.firstName = "Plony";
@@ -36,8 +36,25 @@ public abstract class Employee {
     }
 
     public void setId(int id) {
+        if (id < 0) throw new IllegalArgumentException("ID cannot be negative");
         this.id = id;
     }
 
-    
+    @Override
+    public String toString() {
+        return "first name: " + firstName + " last name: " + lastName + " ID: " + id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Employee employee = (Employee) obj;
+        return id == employee.id && firstName.equals(employee.firstName) && lastName.equals(employee.lastName);
+    }
+
+    public abstract float earnings();
+
+
+
 }
